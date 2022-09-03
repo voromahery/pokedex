@@ -27,3 +27,64 @@ ul {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
 }
+
+.container {
+  margin: 30px 5%;
+}
+
+h1 {
+  color: purple;
+}
+
+form {
+  display: flex;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+}
+
+button {
+  height: 40px;
+}
+
+a {
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.card {
+  background-color: #343d64;
+  max-width: 340px;
+  padding: 16px;
+  border-radius: 20px;
+}
+
+.card > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h3 {
+  color: blue;
+  font-weight: 700;
+}
+
+img {
+  width: 100%;
+}
+
+.type-list {
+  list-style: none;
+  display: flex;
+}
+
+.type-list li {
+  border: solid 2px blue;
+  border-radius: 20px;
+  padding: 10px;
+  margin-right: 16px;
+}

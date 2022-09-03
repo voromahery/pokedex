@@ -21,6 +21,9 @@
     "nuke": "rimraf public/js .shadow-cljs node_modules yarn.lock package-lock.json out report.html",
     "shadow-cljs-server": "shadow-cljs server"
   },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
   "devDependencies": {
     "rimraf": "^3.0.2",
     "serve": "^14.0.1",
