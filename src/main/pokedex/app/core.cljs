@@ -5,7 +5,7 @@
   (:require [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]))
 
-(def input-value (r/atom ""))
+(def input-value (r/atom nil))
 
 (def data (r/atom nil))
 
@@ -27,11 +27,9 @@
 (defn search-form []
   (let [val (r/atom "")]
     (defn on-submit-value [e] (.preventDefault e)
-      (println (get @data :types))
-      ;; (array-map :a 10 :b 20)
-      ;; (println (get (get (get (get @data :sprites) :other) :home) :front_default))
+      ;; (println (get @data :types))
       (reset! input-value @val)
-      (read-response (get-pokemon "dialga")))
+      (read-response (get-pokemon @val)))
     (fn []
       [:form {:on-submit on-submit-value}
        [search-input val]
@@ -58,8 +56,8 @@
   [:div.container
    [:header
     [:h1 "Pokedex"]]
-   [search-form]
-   [card]])
+   [search-form] 
+   (if (nil? (:name @data)) "" [card])])
 
 (defn render []
   (rdom/render [pokedex] (.getElementById js/document "root")))
