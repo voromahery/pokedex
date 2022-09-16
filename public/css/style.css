@@ -47,6 +47,7 @@ form {
   position: relative;
   max-width: 345px;
   border: 1px solid #343d64;
+  margin-bottom: 20px;
 }
 
 input {
@@ -59,12 +60,15 @@ input {
 }
 
 button {
+  cursor: pointer;
+}
+
+.search-btn {
   height: 40px;
   position: absolute;
   right: 0;
   border-radius: 24px;
   border: 0;
-  cursor: pointer;
   background-color: rgba(225, 225, 225, 0.2);
   padding: 8px 16px;
 }
@@ -76,9 +80,15 @@ a {
 
 .card {
   background-color: #343d64;
+  box-shadow: 0px 0px 10px #343d64;
   max-width: 340px;
   padding: 16px;
   border-radius: 20px;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 20px #343d64;
 }
 
 .card > div {
@@ -90,11 +100,6 @@ a {
 h3 {
   color: #fff;
   font-weight: 700;
-}
-
-h4 {
-  margin-top: 20px;
-  color: grey;
 }
 
 img {
@@ -210,4 +215,19 @@ img {
 }
 .water {
   background-image: url("../assets/type-icons/water.png");
+}
+
+.error-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.error-wrapper p {
+  margin-top: 20px;
+  color: grey;
+}
+
+.error-wrapper button {
+  max-width: max-content;
+  margin: auto;
 }
