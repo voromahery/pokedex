@@ -79,6 +79,8 @@ a {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   background-color: #343d64;
   box-shadow: 0px 0px 10px #343d64;
   max-width: 340px;
@@ -98,13 +100,19 @@ a {
   justify-content: space-between;
 }
 
-h3 {
+h2 {
   color: #fff;
   font-weight: 700;
 }
 
 img {
   width: 100%;
+}
+
+.loading {
+  display: block;
+  max-width: 140px;
+  margin: auto;
 }
 
 .type-list {

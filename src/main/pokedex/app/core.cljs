@@ -6,14 +6,16 @@
   (:require [cljs-http.client :as http]
             [cljs.core.async :refer [<!]])
   (:require [goog.string :as gstring])
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  ;; (:require ["./image/loading.gif" :as file])
+  )
 
 ;; ---- States ----
 (def input-value (r/atom nil))
-
+(def loading (r/atom false))
 (def data (r/atom nil))
 
-(def all-pokemon (r/atom nil))
+(defonce all-pokemon (r/atom nil))
 
 (def view (r/atom nil))
 
@@ -28,7 +30,7 @@
 
 (defn get-all-pokemon []
   (go
-    (let [response (<! (http/get "https://pokeapi.co/api/v2/pokemon?limit=1000" {:with-credentials? false}))]
+    (let [response (<! (http/get "https://pokeapi.co/api/v2/pokemon?limit=100000" {:with-credentials? false}))]
       (reset! all-pokemon (get (:body response) :results)))))
 
 (get-all-pokemon)
@@ -41,9 +43,13 @@
   (defn get-pokemon [name]
     (go (<! (http/get (str "https://pokeapi.co/api/v2/pokemon/" (name-checker name)) {:with-credentials? false
                                                                                       :query-params {}}))))
-  (defn read-response [response-chan] 
-    (go (let [resp (<! response-chan)]
-          (reset! data (:body resp)))))
+  (defn read-response [response-chan]
+
+    (go
+      (reset! loading true)
+      (let [resp (<! response-chan)]
+        (reset! data (:body resp))
+        (reset! loading false))))
 
   (defn update-pokemon [value]
     (reset! all-image [{:name "default"
@@ -58,7 +64,6 @@
     (read-response (get-pokemon (get (rand-nth @all-pokemon) :name))))
 
   (when (nil? (:name @data)) (get-random-pokemon))
-
 
 ;; ---- View ----
   (defn search-input [value]
@@ -95,11 +100,13 @@
     [:div.details-wrapper {:on-click get-random-pokemon}
      [:div.card
       [:div
-       [:h3 (title-case (:name @data))]
+       [:h2 (title-case (:name @data))]
        [view-selector]]
-      [:img {:src (cond
-                    (= @view "original") (get (get @data :sprites) :front_default)
-                    :else (get (get (get (get @data :sprites) :other) :home) :front_default)) :alt (get @image :name)}]
+      (when (= @loading  true)  [:img {:src "https://i.gifer.com/2iiJ.gif" :alt "loading" :class "loading"}])
+      (when-not (= @loading true)
+        [:img {:src (cond
+                      (= @view "original") (get (get @data :sprites) :front_default)
+                      :else (get (get (get (get @data :sprites) :other) :home) :front_default)) :alt (:name @data)}])
 
       [:ul.type-list
        (for [type (get @data :types)]
