@@ -15,7 +15,7 @@
  {:app
   {:target     :browser
    :output-dir "public/js"
-   :asset-path "/js"
+   :asset-path "public"
    :modules    {:main
                 {:init-fn pokedex.app.core/main}}}
 

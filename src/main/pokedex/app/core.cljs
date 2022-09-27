@@ -6,13 +6,13 @@
   (:require [cljs-http.client :as http]
             [cljs.core.async :refer [<!]])
   (:require [goog.string :as gstring])
-  (:require [clojure.string :as str])
-  ;; (:require ["./image/loading.gif" :as file])
-  )
+  (:require [clojure.string :as str]))
 
 ;; ---- States ----
 (def input-value (r/atom nil))
+
 (def loading (r/atom false))
+
 (def data (r/atom nil))
 
 (defonce all-pokemon (r/atom nil))
@@ -102,11 +102,11 @@
       [:div
        [:h2 (title-case (:name @data))]
        [view-selector]]
-      (when (= @loading  true)  [:img {:src "https://i.gifer.com/2iiJ.gif" :alt "loading" :class "loading"}])
-      (when-not (= @loading true)
-        [:img {:src (cond
-                      (= @view "original") (get (get @data :sprites) :front_default)
-                      :else (get (get (get (get @data :sprites) :other) :home) :front_default)) :alt (:name @data)}])
+      [:div.image-wrapper
+       (if @loading [:img {:src "/running-pikachu.gif" :alt "loading" :class "loading"}]
+           [:img {:src (if
+                        (= @view "original") (get (get @data :sprites) :front_default)
+                        (get (get (get (get @data :sprites) :other) :home) :front_default)) :alt (:name @data)}])]
 
       [:ul.type-list
        (for [type (get @data :types)]

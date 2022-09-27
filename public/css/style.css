@@ -109,6 +109,12 @@ img {
   width: 100%;
 }
 
+.image-wrapper {
+  display: block;
+  max-width: 308px;
+  height: 308px;
+}
+
 .loading {
   display: block;
   max-width: 140px;
