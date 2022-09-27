@@ -76,12 +76,13 @@
   (let [val (r/atom "")]
 
     (defn on-submit-value [e] (.preventDefault e)
-      (reset! input-value @val)
-      (update-pokemon @input-value))
+      (when (> (count @val) 0) (reset! input-value @val)
+            (update-pokemon @input-value)))
     (fn []
       [:form {:on-submit on-submit-value}
        [search-input val]
-       [:button.search-btn "Search"]])))
+       [:button {:class "search-btn" :style {:color (if (> (count @val) 0) "#2B3151" "#fff")
+                                             :background-color (if (> (count @val) 0) "#f4b916" "#2b3151")}} "Search"]])))
 
 (defn change-image [value]
   (for [item @all-image]
@@ -97,12 +98,12 @@
 
 (defn card []
   (fn []
-    [:div.details-wrapper {:on-click get-random-pokemon}
+    [:div.details-wrapper
      [:div.card
       [:div
        [:h2 (title-case (:name @data))]
        [view-selector]]
-      [:div.image-wrapper
+      [:div.image-wrapper {:on-click get-random-pokemon}
        (if @loading [:img {:src "/running-pikachu.gif" :alt "loading" :class "loading"}]
            [:img {:src (if
                         (= @view "original") (get (get @data :sprites) :front_default)
