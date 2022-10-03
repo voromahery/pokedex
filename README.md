@@ -37,7 +37,7 @@ This app is created in order to see the fruits of what I learned in ClojureScrip
 ## Features
 
 - [PokeApi](https://pokeapi.co/)
-- [Type Icon](https://www.pngegg.com/en/png-fnqpl)
+- [Pokemon Type Icons](https://www.pngegg.com/en/png-fnqpl)
 
 ## How To Use
 
